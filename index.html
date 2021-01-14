@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="styles.css">
+  <img src="" alt="">
+</head>
+<body>
+  <h1>WePoker Statistics</h1>
+  <div class="container">
+    <div class="nav-wrapper">
+      <div></div>
+      <div class="left-side">
+        <div class="nav-link-wrapper">
+          <a href="index.html">Home</a>
+        </div>
+        <div class="nav-link-wrapper">
+          <a href="index.html">About</a>
+        </div>
+        <div class="nav-link-wrapper">
+          <a href="https://wpk.com">WePoker官方</a>
+        </div>
+      </div>
+      <div class="brand">
+        Website made by Kingston with HTML and CSS
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div class="content-wrapper">
+    <img src="images/allen-iverson-china-4.jpg" alt "iverson" class="center">
+  </div>
+
+  <a class="button" href="about.html">Statistics</a>
+
+
+
+
+
+  <script>
+    fetch('poker.csv');
+//collecting data from csv file
+  getData(); //function call
+    async function getData() { //function name
+    const response = await fetch('poker.csv'); //use await to fetch
+    const data = await response.text(); //convert saved response(promise) into var data
+    console.log(data); //log the data
+    }
+
+  </script>
+</body>
+
+
+
+</html>
