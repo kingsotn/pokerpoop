@@ -1,0 +1,85 @@
+.body{
+  margin:0px;
+}
+
+.container{
+  display: grid;
+  grid-template-columns: 1fr; /*fractional unit */
+}
+
+.nav-wrapper {
+  display: flex; /* this puts shit side by side */
+  justify-content: space-between;
+  padding: 38px;
+  margin-right: 40px;
+}
+
+.brand {
+  color: #3a3a3a;
+
+}
+
+.left-side {
+  display: flex;
+  color: red;
+}
+
+.nav-wrapper > .left-side > div {
+  margin-right: 20px;
+  font-size: 0.9em; /*default size is 1m now it is 0.9 of that*/
+  text-transform: uppercase;
+}
+
+.nav-link-wrapper {
+  height: 22px;
+  border-bottom: 1px solid transparent;
+  transition: border-bottom 0.5s;
+  margin-right: 5px;
+}
+
+.nav-link-wrapper a {
+  color: #8a8a8a;
+  text-decoration: none;
+  transition: color 0.5s;
+}
+
+.nav-link-wrapper:hover {
+  border-bottom: 1px solid black;
+}
+
+
+.nav-link-wrapper a:hover {
+  color: black
+}
+
+.button {
+  line-height: 1.5;
+  font-family: "fira sans",system-ui,-apple-system,roboto,"segoe ui",sans-serif;
+  text-align: center;
+  box-sizing: border-box;
+  background: transparent;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color .3s ease,border-color .3s ease,color .3s ease;
+  font-size: 1.0625em;
+  border-radius: 4px;
+  margin: 0 0.4em 0.5em 0;
+  padding: .75em 2em;
+  border: 2px solid #f87b1e;
+  background-color: #f87b1e;
+  color: #fff;
+  margin-top: 1em;
+  margin-right: 0;
+  
+}
+
+.center {
+  height: auto;
+  width: auto;
+  display: block;
+  position: center;
+  margin: auto;
+  width: auto;
+  padding: 10px;
+  text-align: center;
+}
