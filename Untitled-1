@@ -1,0 +1,7 @@
+//collecting data from csv file
+  getData(); //function call
+    async function getData() { //function name
+    const response = await fetch('poker.csv'); //use await to fetch
+    const data = await response.text(); //convert saved response(promise) into var data
+    console.log(data); //log the data
+    }

@@ -1,57 +1,129 @@
+<!--https://www.figma.com/community/file/904870002392614598-->
 <!DOCTYPE html>
 <html>
 
-<head>
-  <meta charset="utf-8">
-  <title></title>
-  <link rel="stylesheet" href="styles.css">
-  <img src="" alt="">
-</head>
-<body>
-  <h1>WePoker Statistics</h1>
-  <div class="container">
-    <div class="nav-wrapper">
-      <div></div>
-      <div class="left-side">
-        <div class="nav-link-wrapper">
-          <a href="index.html">Home</a>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+  </head>
+
+  <body>
+    <h1>WePoker Statistics</h1>
+    <div class="container">
+      <div class="nav-wrapper">
+        <div></div>
+        <div class="left-side">
+          <div class="nav-link-wrapper">
+            <a href="index.html">Home</a>
+          </div>
+          <div class="nav-link-wrapper">
+            <a href="index.html">About</a>
+          </div>
+          <div class="nav-link-wrapper">
+            <a href="https://wpk.com">WePoker官方</a>
+          </div>
         </div>
-        <div class="nav-link-wrapper">
-          <a href="index.html">About</a>
+        <div class="brand">
+          Website made by Kingston with HTML and CSS
         </div>
-        <div class="nav-link-wrapper">
-          <a href="https://wpk.com">WePoker官方</a>
-        </div>
-      </div>
-      <div class="brand">
-        Website made by Kingston with HTML and CSS
       </div>
     </div>
-  </div>
-  </div>
-
-  <div class="content-wrapper">
+    </div>
+    <a class="button" href="about.html">Statistics</a>
     <img src="images/allen-iverson-china-4.jpg" alt "iverson" class="center">
-  </div>
-
-  <a class="button" href="about.html">Statistics</a>
 
 
 
 
 
-  <script>
-    fetch('poker.csv');
-//collecting data from csv file
-  getData(); //function call
-    async function getData() { //function name
-    const response = await fetch('poker.csv'); //use await to fetch
-    const data = await response.text(); //convert saved response(promise) into var data
-    console.log(data); //log the data
-    }
 
-  </script>
-</body>
+
+
+    <canvas id="chart" width="400" height="400"></canvas>
+    <script>
+      //All time rankings script
+      chartIt();
+      console.log('about to fetch some fockin data');
+      var ctx = document.getElementById('chart').getContext('2d');
+      var userCount = 0;
+
+      let today = new Date().toISOString().slice(0, 10); //date thingy
+
+      async function chartIt() {
+        const data = await getData(); //chartIt() waits until getData() is done before continuing past this line
+        const myBarChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: data.xs,
+            datasets: [{
+              label: 'All Time Rankings: ' + today,
+              data: data.ys,
+              backgroundColor:
+                getRandomColor(),
+              borderColor:
+                getRandomColor(),
+              hoverBackgroundColor: undefined,
+              borderWidth: 1,
+            }]
+          },
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  callback: function (value, index, values) {
+                    if (value >= 0)
+                      return '¥' + value;
+                    else return '-¥' + Math.abs(value); //simple axes reorientation
+                  }
+                },
+                xAxes: [{
+                  offsetGridLines: false
+                }]
+              }]
+            }
+          }
+        });
+      }
+
+      function getRandomColor() {
+        console.log(userCount);
+          var colorListRand = [];
+
+        for (var i = 0; i < userCount+1; i++) {
+          colorListRand.push('rgba(' + Math.random()* (255) + ',' + Math.random()* (255) + ','+ Math.random()* (255) + ',0.2)');
+        }
+          console.log(colorListRand);
+          return colorListRand;
+      }
+
+      async function getData() //function name
+      {
+        const xs = [];
+        const ys = [];
+        const response = await fetch('csv_files/all_time.csv'); //use await to fetch all time
+        const data = await response.text(); //convert saved response(promise) into var data
+        console.log("splitting data");
+        const table = data.split('\n').slice(2); //indicates \n splits row
+        table.forEach(e => {
+          const colm = e.split(','); //indicates , splits colm
+          const id = colm[2];
+          const name = colm[1];
+          xs.push(name);
+          const PL = colm[6];
+          ys.push(PL);
+          userCount++;
+          console.log(id, name, PL);
+        });
+        console.log("final user count" + userCount);
+        return {xs,ys,userCount}
+      }
+    </script>
+  </body>
 
 
 
